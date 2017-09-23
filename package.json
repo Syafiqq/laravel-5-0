@@ -18,5 +18,16 @@
     "gulp-watch": "^4.3.11",
     "laravel-elixir": "*",
     "pump": "^1.0.2"
+  },
+  "name": "laravel-5-0",
+  "version": "0.0.1",
+  "description": "learn laravel 5.0",
+  "main": "index.js",
+  "repository": "git@github.com:Syafiqq/laravel-5-0.git",
+  "author": "Syafiqq <id.muhammad.syafiq@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "html5-boilerplate": "^6.0.1",
+    "jquery": "^3.2.1"
   }
 }
