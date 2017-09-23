@@ -15,3 +15,4 @@
 /** @var \Illuminate\Routing\Router $router */
 $router->get('/', 'WelcomeController@index');
 $router->get('/template/boilerplate', 'TemplateController@boilerplate');
+$router->get('/template/bootstrap', 'TemplateController@bootstrap');

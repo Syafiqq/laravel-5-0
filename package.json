@@ -27,7 +27,9 @@
   "author": "Syafiqq <id.muhammad.syafiq@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "html5-boilerplate": "^6.0.1",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "popper.js": "^1.12.5"
   }
 }
