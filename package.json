@@ -1,7 +1,22 @@
 {
   "private": true,
   "devDependencies": {
-    "gulp": "^3.8.8",
-    "laravel-elixir": "*"
+    "@cedx/gulp-php-minify": "^3.1.1",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.3.0",
+    "gulp-json-minify": "^1.2.0",
+    "gulp-remove-files": "0.0.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.6.3",
+    "gulp-trimlines": "^1.0.1",
+    "gulp-uglify": "^2.1.2",
+    "gulp-using": "^0.1.1",
+    "gulp-util": "^3.0.8",
+    "gulp-watch": "^4.3.11",
+    "laravel-elixir": "*",
+    "pump": "^1.0.2"
   }
 }
