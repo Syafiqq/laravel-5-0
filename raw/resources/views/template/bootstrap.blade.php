@@ -32,7 +32,7 @@
 
 <!-- Add your site or application content here -->
 <p>Hello world! This is Bootstrap.</p>
-<script type="text/javascript" src="/assets/vendor/html5-boilerplate/dist/js/vendor/modernizr-3.5.0.min.min.js"></script>
+<script type="text/javascript" src="/assets/vendor/html5-boilerplate/dist/js/vendor/modernizr-3.5.0.min.js"></script>
 <script type="text/javascript" src="/assets/vendor/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript">window.jQuery || document.write('<script src="/assets/vendor/jquery/dist/jquery.min.js"><\/script>')</script>
 <script type="text/javascript" src="/assets/vendor/html5-boilerplate/dist/js/plugins.min.js"></script>

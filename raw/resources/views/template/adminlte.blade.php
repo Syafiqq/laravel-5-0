@@ -8,7 +8,7 @@
     {{-- Tell the browser to be responsive to screen width --}}
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="manifest" href="/manifest.min.json">
     <link rel="apple-touch-icon" href="/icon.png">
     {{-- Place favicon.ico in the root directory --}}
 
@@ -87,7 +87,7 @@
     </div>
 </div>
 {{-- Modernizr --}}
-<script type="text/javascript" src="/assets/vendor/html5-boilerplate/dist/js/vendor/modernizr-3.5.0.min.min.js"></script>
+<script type="text/javascript" src="/assets/vendor/html5-boilerplate/dist/js/vendor/modernizr-3.5.0.min.js"></script>
 {{-- Jquery --}}
 <script type="text/javascript" src="/assets/vendor/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript">window.jQuery || document.write('<script src="/assets/vendor/jquery/dist/jquery.min.js"><\/script>')</script>
