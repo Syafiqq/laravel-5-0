@@ -13,4 +13,9 @@ class TemplateController extends Controller
         return view('template.bootstrap');
     }
 
+    public function adminlte()
+    {
+        return view('template.adminlte');
+    }
+
 }
