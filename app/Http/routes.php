@@ -11,4 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+
+/** @var \Illuminate\Routing\Router $router */
+$router->get('/', 'WelcomeController@index');
+$router->get('/template/boilerplate', 'TemplateController@boilerplate');
