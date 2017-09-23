@@ -86,10 +86,7 @@ gulp.task('minify-public-json', function () {
 });
 
 gulp.task('minify-resources-views', function () {
-    return gulp.src(['./raw/resources/views/**/*.{php,blade.php,html}'], {
-        dot: true,
-        base: './raw/resources/views/'
-    })
+    return gulp.src(['./raw/resources/views/**/*.{php,blade.php,html}'], {dot: true, base: './raw/resources/views/'})
         .pipe(gulp.dest('./resources/views/'));
 });
 
