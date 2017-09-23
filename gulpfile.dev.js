@@ -35,41 +35,54 @@ gulp.task('minify-public-assets-vendor-img', function () {
 
 gulp.task('minify-public-assets-vendor-js', function (cb) {
     pump([
-            gulp.src(assetsVendorResource(false, '*.js'), {
-                dot: true,
-                base: './node_modules/'
-            })
-                .pipe(rename({
-                    suffix: ".min",
-                    extname: ".js"
-                })),
+            gulp.src(assetsVendorResource(false, '*.js'), {dot: true, base: './node_modules/'})
+                .pipe(rename({suffix: ".min", extname: ".js"})),
             gulp.dest('./public/assets/vendor/')],
         cb
     );
 });
 
 gulp.task('minify-public-assets-vendor-css', function () {
-    return gulp.src(assetsVendorResource(false, '*.css'), {
-        dot: true,
-        base: './node_modules/'
-    })
-        .pipe(rename({
-            suffix: ".min",
-            extname: ".css"
-        }))
+    return gulp.src(assetsVendorResource(false, '*.css'), {dot: true, base: './node_modules/'})
+        .pipe(rename({suffix: ".min", extname: ".css"}))
         .pipe(gulp.dest('./public/assets/vendor/'));
 });
 
 gulp.task('minify-public-assets-vendor-json', function () {
-    return gulp.src(assetsVendorResource(false, '*.json'), {
-        dot: true,
-        base: './node_modules/'
-    })
-        .pipe(rename({
-            suffix: ".min",
-            extname: ".json"
-        }))
+    return gulp.src(assetsVendorResource(false, '*.json'), {dot: true, base: './node_modules/'})
+        .pipe(rename({suffix: ".min", extname: ".json"}))
         .pipe(gulp.dest('./public/assets/vendor'));
+});
+
+gulp.task('move-public', function () {
+    return gulp.src(['./raw/public/**'], {dot: true, base: './raw/public/'})
+        .pipe(gulp.dest('./public/'));
+});
+
+gulp.task('minify-public-img', function () {
+    return gulp.src(['./raw/public/**/*.{png,jpg,jpeg,gif,svg}'], {dot: true, base: './raw/public/'})
+        .pipe(gulp.dest('./public/'));
+});
+
+gulp.task('minify-public-js', function (cb) {
+    pump([
+            gulp.src(['./raw/public/**/*.js'], {dot: true, base: './raw/public/'})
+                .pipe(rename({suffix: ".min", extname: ".js"})),
+            gulp.dest('./public/')],
+        cb
+    );
+});
+
+gulp.task('minify-public-css', function () {
+    return gulp.src(['./raw/public/**/*.css'], {dot: true, base: './raw/public/'})
+        .pipe(rename({suffix: ".min", extname: ".css"}))
+        .pipe(gulp.dest('./public/'));
+});
+
+gulp.task('minify-public-json', function () {
+    return gulp.src(['./raw/public/**/*.json'], {dot: true, base: './raw/public/'})
+        .pipe(rename({suffix: ".min", extname: ".json"}))
+        .pipe(gulp.dest('./public/'));
 });
 
 gulp.task('minify-resources-views', function () {
@@ -78,6 +91,42 @@ gulp.task('minify-resources-views', function () {
         base: './raw/resources/views/'
     })
         .pipe(gulp.dest('./resources/views/'));
+});
+
+gulp.task('watch-public-img', function () {
+    var path = ['./raw/public/**/*.{png,jpg,jpeg,gif,svg}'];
+    return watch(path, function () {
+        return gulp.src(path, {dot: true, base: './raw/public/'})
+            .pipe(gulp.dest('./public/'));
+    });
+});
+
+gulp.task('watch-public-js', function () {
+    var path = ['./raw/public/**/*.js'];
+    return watch(path, function (cb) {
+        pump([
+                gulp.src(path, {dot: true, base: './raw/public/'})
+                    .pipe(rename({suffix: ".min", extname: ".js"})),
+                gulp.dest('./public/')],
+            cb
+        );
+    });
+});
+
+gulp.task('watch-public-css', function () {
+    var path = ['./raw/public/**/*.css'];
+    return watch(path, function () {
+        return gulp.src(path, {dot: true, base: './raw/public/'})
+            .pipe(rename({suffix: ".min", extname: ".css"}))
+            .pipe(gulp.dest('./public/'));
+    });
+});
+
+gulp.task('watch-public-json', function () {
+    var path = ['./raw/public/**/*.json'];
+    return gulp.src(path, {dot: true, base: './raw/public/'})
+        .pipe(rename({suffix: ".min", extname: ".json"}))
+        .pipe(gulp.dest('./public/'));
 });
 
 gulp.task('watch-resources-views', function () {
@@ -90,7 +139,7 @@ gulp.task('watch-resources-views', function () {
 
 gulp.task('remove-generated-file', function () {
     return gulp.src([
-        './public/assets/vendor/**',
+        './public/**',
         './resources/views/**',
         '!./resources/views/vendor/**'
     ], {dot: true, base: './public/assets/'})
