@@ -10,9 +10,11 @@ self.addEventListener('install', function (event) {
     // long install takes, and if it failed
     event.waitUntil(
         // We open a cache…
-        caches.open('template-adminlte').then(function (cache) {
+        caches.open('t-cache').then(function (cache) {
             // And add resources to it
-            return cache.addAll([]);
+            return cache.addAll([
+                'manifest.min.json'
+            ]);
         })
     );
 });
