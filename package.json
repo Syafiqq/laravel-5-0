@@ -27,7 +27,7 @@
   "author": "Syafiqq <id.muhammad.syafiq@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "admin-lte": "^2.3.11",
+    "admin-lte": "^2.4.0",
     "bootstrap": "^3.3.7",
     "fastclick": "^1.0.6",
     "font-awesome": "^4.7.0",
