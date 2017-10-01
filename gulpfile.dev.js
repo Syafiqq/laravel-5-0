@@ -19,7 +19,8 @@ function assetsVendorResource(negated, mime)
         (negated ? '!' : '') + './node_modules/nprogress/**' + (mime === null ? '' : '/' + mime),
         (negated ? '!' : '') + './node_modules/ionicons/dist/**' + (mime === null ? '' : '/' + mime),
         (negated ? '!' : '') + './node_modules/fastclick/lib/**' + (mime === null ? '' : '/' + mime),
-        (negated ? '!' : '') + './node_modules/admin-lte/dist/**' + (mime === null ? '' : '/' + mime)
+        (negated ? '!' : '') + './node_modules/admin-lte/dist/**' + (mime === null ? '' : '/' + mime),
+        (negated ? '!' : '') + './node_modules/semantic-generated/dist/**' + (mime === null ? '' : '/' + mime)
     ];
 }
 
