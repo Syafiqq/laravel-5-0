@@ -17,3 +17,4 @@ $router->get('/', 'WelcomeController@index');
 $router->get('/template/boilerplate', 'TemplateController@boilerplate');
 $router->get('/template/bootstrap', 'TemplateController@bootstrap');
 $router->get('/template/adminlte', 'TemplateController@adminlte');
+$router->get('/template/semantic', 'TemplateController@semantic');
