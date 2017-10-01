@@ -123,7 +123,15 @@ gulp.task('remove-generated-file', function () {
     return gulp.src([
         './public/**',
         './resources/views/**',
-        '!./resources/views/vendor/**'
+        '!./resources/views/vendor/**',
+        '!./public/assets/vendor/**',
+    ], {dot: true, base: './public/assets/'})
+        .pipe(removeFiles())
+});
+
+gulp.task('remove-generated-file-vendor', function () {
+    return gulp.src([
+        './public/assets/vendor/**',
     ], {dot: true, base: './public/assets/'})
         .pipe(removeFiles())
 });
