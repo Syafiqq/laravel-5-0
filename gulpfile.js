@@ -1,3 +1,4 @@
+const gpath 	  = require('./gulpfile.path.js');
 const gulp        = require('gulp');
 const rename      = require('gulp-rename');
 const pump        = require('pump');
@@ -10,7 +11,7 @@ const jsonMinify  = require('gulp-json-minify');
 //noinspection JSAnnotator
 const {phpMinify} = require('@cedx/gulp-php-minify');
 const elixir      = require('laravel-elixir');
-const assets      = assetsVendorResource(false, null);
+const assets      = gpath.assetsVendorResource(false, null);
 
 /*
  |--------------------------------------------------------------------------
@@ -27,48 +28,31 @@ elixir(function (mix) {
     mix.less('app.less');
 });
 
-function assetsVendorResource(negated, mime)
-{
-    return [
-        (negated ? '!' : '') + './node_modules/jquery/dist/**' + (mime === null ? '' : '/' + mime),
-        (negated ? '!' : '') + './node_modules/html5-boilerplate/dist/**' + (mime === null ? '' : '/' + mime),
-        (negated ? '!' : '') + './node_modules/bootstrap/dist/**' + (mime === null ? '' : '/' + mime),
-        (negated ? '!' : '') + './node_modules/popper.js/dist/**' + (mime === null ? '' : '/' + mime),
-        (negated ? '!' : '') + './node_modules/font-awesome/css/**' + (mime === null ? '' : '/' + mime),
-        (negated ? '!' : '') + './node_modules/font-awesome/fonts/**' + (mime === null ? '' : '/' + mime),
-        (negated ? '!' : '') + './node_modules/jquery-slimscroll/**' + (mime === null ? '' : '/' + mime),
-        (negated ? '!' : '') + './node_modules/nprogress/**' + (mime === null ? '' : '/' + mime),
-        (negated ? '!' : '') + './node_modules/ionicons/dist/**' + (mime === null ? '' : '/' + mime),
-        (negated ? '!' : '') + './node_modules/fastclick/lib/**' + (mime === null ? '' : '/' + mime),
-        (negated ? '!' : '') + './node_modules/admin-lte/dist/**' + (mime === null ? '' : '/' + mime)
-    ];
-}
-
 gulp.task('move-public-assets-vendor-1', function () {
-    return gulp.src(assets.concat(assetsVendorResource(true, '*.{js,css,json,png,jpg,jpeg,gif,svg}')),
+    return gulp.src(assets.concat(gpath.assetsVendorResource(true, '*.{js,css,json,png,jpg,jpeg,gif,svg}')),
         {dot: true, base: './node_modules/'})
         .pipe(gulp.dest('./public/assets/vendor/'));
 });
 
 gulp.task('move-public-assets-vendor-2', function () {
-    return gulp.src(assetsVendorResource(false, '*.min.{js,css,json}'), {dot: true, base: './node_modules/'})
+    return gulp.src(gpath.assetsVendorResource(false, '*.min.{js,css,json}'), {dot: true, base: './node_modules/'})
         .pipe(gulp.dest('./public/assets/vendor/'));
 });
 
 gulp.task('minify-public-assets-vendor-img', function () {
-    return gulp.src(assetsVendorResource(false, '*.{png,jpg,jpeg,gif,svg}'), {dot: true, base: './node_modules/'})
+    return gulp.src(gpath.assetsVendorResource(false, '*.{png,jpg,jpeg,gif,svg}'), {dot: true, base: './node_modules/'})
         .pipe(imagemin([imagemin.gifsicle({interlaced: true}), imagemin.jpegtran({progressive: true}), imagemin.optipng({optimizationLevel: 5})]))
         .pipe(gulp.dest('./public/assets/vendor/'));
 });
 
 gulp.task('minify-public-assets-vendor-js', function (cb) {
     pump([
-            gulp.src(assetsVendorResource(false, '*.js')
+            gulp.src(gpath.assetsVendorResource(false, '*.js')
                     .concat([
                         '!./node_modules/popper.js/**/popper-utils.js',
                         '!./node_modules/popper.js/**/popper.js'
                     ])
-                    .concat(assetsVendorResource(true, '*.min.js')),
+                    .concat(gpath.assetsVendorResource(true, '*.min.js')),
                 {dot: true, base: './node_modules/'})
                 .pipe(rename({suffix: ".min", extname: ".js"})),
             uglify(),
@@ -78,7 +62,7 @@ gulp.task('minify-public-assets-vendor-js', function (cb) {
 });
 
 gulp.task('minify-public-assets-vendor-css', function () {
-    return gulp.src(assetsVendorResource(false, '*.css').concat(assetsVendorResource(true, '*.min.css')),
+    return gulp.src(gpath.assetsVendorResource(false, '*.css').concat(gpath.assetsVendorResource(true, '*.min.css')),
         {dot: true, base: './node_modules/'})
         .pipe(rename({suffix: ".min", extname: ".css"}))
         .pipe(cleanCSS({compatibility: 'ie8', rebase: false}))
@@ -86,7 +70,7 @@ gulp.task('minify-public-assets-vendor-css', function () {
 });
 
 gulp.task('minify-public-assets-vendor-json', function () {
-    return gulp.src(assetsVendorResource(false, '*.json').concat(assetsVendorResource(true, '*.min.json')),
+    return gulp.src(gpath.assetsVendorResource(false, '*.json').concat(gpath.assetsVendorResource(true, '*.min.json')),
         {dot: true, base: './node_modules/'})
         .pipe(rename({suffix: ".min", extname: ".json"}))
         .pipe(gulp.dest('./public/assets/vendor'));
