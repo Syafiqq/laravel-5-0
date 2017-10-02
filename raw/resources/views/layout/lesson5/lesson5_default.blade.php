@@ -11,7 +11,10 @@ if (isset($other_other_data))
 {
     $data['otherOtherData'] = $other_other_data;
 }
-
+if (isset($abc))
+{
+    $data['abc'] = $abc;
+}
 ?>
 
 @extends('root.root-0')
@@ -41,7 +44,11 @@ if (isset($other_other_data))
         @if(is_array($var))
             <div class="ui list">
                 @foreach(empty($var) ? [] : $var as $v)
-                    <div class="item">{{$v}}</div>
+                    @if(is_array($v))
+                        <div class="item">{{var_export($v, true)}}</div>
+                    @else
+                        <div class="item">{{$v}}</div>
+                    @endif
                 @endforeach
             </div>
         @else
