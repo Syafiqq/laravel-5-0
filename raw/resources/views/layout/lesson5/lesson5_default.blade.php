@@ -15,6 +15,14 @@ if (isset($abc))
 {
     $data['abc'] = $abc;
 }
+if (isset($composer))
+{
+    $data['composer'] = $composer;
+}
+if (isset($profile_composer))
+{
+    $data['profile_composer'] = $profile_composer;
+}
 ?>
 
 @extends('root.root-0')
