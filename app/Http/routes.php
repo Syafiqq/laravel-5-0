@@ -29,3 +29,10 @@ $router->get('/lesson4/closure/direct', function () {
 $router->get('/lesson4/closure/view', function () {
     return view('layout.lesson4.response.lesson4_response_default');
 });
+
+/*Lesson 5*/
+$router->get('/lesson5/assoc', 'Lesson5Controller@assoc');
+$router->get('/lesson5/compact', 'Lesson5Controller@compact');
+$router->get('/lesson5/with', 'Lesson5Controller@with');
+$router->get('/lesson5/with/constraint', 'Lesson5Controller@with_constraint');
+$router->get('/lesson5/combined', 'Lesson5Controller@combined');
