@@ -18,3 +18,4 @@ $router->get('/template/boilerplate', 'TemplateController@boilerplate');
 $router->get('/template/bootstrap', 'TemplateController@bootstrap');
 $router->get('/template/adminlte', 'TemplateController@adminlte');
 $router->get('/template/semantic', 'TemplateController@semantic');
+$router->get('/lesson5/assoc', 'Lesson5Controller@assoc');
