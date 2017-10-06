@@ -10,7 +10,8 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+/** @var \Illuminate\Contracts\Logging\Log $log */
+$log = \Illuminate\Support\Facades\Log::getFacadeRoot();
 
 /** @var \Illuminate\Routing\Router $router */
 $router->get('/', 'WelcomeController@index');
@@ -19,7 +20,49 @@ $router->get('/template/bootstrap', 'TemplateController@bootstrap');
 $router->get('/template/adminlte', 'TemplateController@adminlte');
 $router->get('/template/semantic', 'TemplateController@semantic');
 //Lesson 006
-$router->group(['prefix' => 's01/e06'], function () use ($router) {
+$router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
+    //Basic GET Route
     $router->get('/songs', 'S01\E06\SongsController@songList');
-    $router->get('/songs/{id}', 'S01\E06\SongsController@songGet')->where('id', '[0-9]+');
+    $router->get('/songs/{id}', 'S01\E06\SongsController@songGet')
+        ->where('id', '[0-9]+'); //Regular Expression Parameter Constraints
+    //Other Basic Routes
+    $router->post('/songs1', 'S01\E06\SongsController@songList');
+    //Registering A Route For Multiple Verbs
+    $router->match(['get', 'post'], '/songs2', 'S01\E06\SongsController@songList');
+    //Optional Route Parameters
+    $router->get('/songs3/{id?}/{name?}', 'S01\E06\SongsController@songDispatcher')
+        ->where('id', '[0-9]+')//Regular Expression Parameter Constraints
+        ->where('name', '[a-z]+'); //Regular Expression Parameter Constraints
+    $router->get('/songs4/{id?}/{name?}', 'S01\E06\SongsController@songDispatcher')
+        ->where(['id' => '[0-9]+', 'name' => '[a-z]+']);//Regular Expression Parameter Constraints
+    $router->get('/songs5/{g_id?}/{g_name?}', 'S01\E06\SongsController@songDispatcher');
+    //Named Routes
+    $router->get('/songs6/{g_id?}/{g_name?}', ['as' => 'ssong6', function () use ($log, $router) {
+        $url = route('ssong6');
+
+        $redirect = redirect()->route('ssong6');
+        $name     = $router->currentRouteName();
+        $log->error($url);
+        $log->error($name);
+        $log->error($redirect);
+    }]);
 });
+//Route Groups
+$router->group(['namespace' => 'S01', 'prefix' => 's01'], function () use ($router) {
+    $router->group(['namespace' => 'E06'], function () use ($router) {
+        $router->get('e06/songs7/{g_id?}/{g_name?}', 'SongsController@songDispatcher');
+    });
+});
+$router->group([
+    'domain' => 'laravel.{version}.com',
+    'where' => ['version' => '50'],
+    'prefix' => 's01/e06',
+    'namespace' => 'S01\\E06'
+], function () use ($log, $router) {
+    $router->get('songs8/{g_id?}/{g_name?}', function ($version) use ($log) {
+        $log->error($version);
+    });
+});
+
+
+
