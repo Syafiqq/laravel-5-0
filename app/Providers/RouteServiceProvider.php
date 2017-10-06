@@ -23,9 +23,15 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        parent::boot($router);
+        $router->pattern('g_id', '[0-9]+');
+        $router->patterns(['g_name' => '[a-z]+']);
 
-        //
+        /**
+         * place parent caller in the bottom of function according to:
+         * @see https://laracasts.com/discuss/channels/general-discussion/route-global-pattern-in-routeserviceprovider-not-working-in-laravel-5
+         * @see https://stackoverflow.com/questions/28251154/laravel-5-0-dev-defining-global-patterns-is-not-working/29567578#29567578
+         * */
+        parent::boot($router);
     }
 
     /**
