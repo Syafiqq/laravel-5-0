@@ -20,6 +20,15 @@ class SongsController extends Controller
         ];
     }
 
+    /**
+     * @param null|int $id
+     * @return \Illuminate\View\View
+     */
+    public function songDispatcher($id = null)
+    {
+        return is_null($id) ? $this->songList() : $this->songGet($id);
+    }
+
 
     /**
      * @return \Illuminate\View\View
