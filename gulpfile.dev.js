@@ -17,16 +17,13 @@ gulp.task('move-public-only', function () {
 
 gulp.task('move-public-assets', function () {
     return gulp.src(['./raw/public/assets/**',
-        '!./raw/public/assets/vendor/**',
         '!./raw/public/assets/**/*.{js,css,json,png,jpg,jpeg,gif,svg}'
     ], {dot: true, base: './raw/public/assets/'})
         .pipe(gulp.dest('./public/assets/'));
 });
 
 gulp.task('move-public-minified-assets', function () {
-    return gulp.src(['./raw/public/assets/**/*.min.{js,css,json}',
-        '!./raw/public/assets/vendor/**'
-    ], {dot: true, base: './raw/public/assets/'})
+    return gulp.src(['./raw/public/assets/**/*.min.{js,css,json}'], {dot: true, base: './raw/public/assets/'})
         .pipe(gulp.dest('./public/assets/'));
 });
 
