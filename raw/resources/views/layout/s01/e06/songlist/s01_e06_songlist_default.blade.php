@@ -21,11 +21,11 @@ if (!isset($songs))
 @section('body-content')
     <h1>List Of Songs</h1>
     <div class="ui list">
-        @foreach($songs as $k => $song)
+        @foreach($songs as $song)
             <div class="item">
                 <i class="music icon"></i>
                 <div class="content">
-                    <a href="{{url("{$prefix}/songs/${k}")}}">{{$song}}</a>
+                    <a href="{{url("{$prefix}/songs/${song['id']}")}}">{{$song['song']}}</a>
                 </div>
             </div>
         @endforeach
