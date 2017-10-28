@@ -16,5 +16,8 @@ if (!isset($song))
 @endsection
 
 @section('body-content')
-    <h1>Detail Of Song [{{$song}}]</h1>
+    @unless($song == null)
+        <h1>Detail Of Song [{{$song['song']}}]</h1>
+        <h2>Lyric Of Song [{{$song['lyric']}}]</h2>
+    @endunless
 @endsection
