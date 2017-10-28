@@ -1,23 +1,22 @@
 <?php namespace App\Http\Controllers\S01\E06;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 
 class SongsController extends Controller
 {
-    private $songs;
+    /**
+     * @var Builder
+     */
+    private $db;
 
     /**
      * SongsController constructor.
      */
     public function __construct()
     {
-        $this->songs = [
-            'Song 1',
-            'Song 2',
-            'Song 3',
-            'Song 4',
-            'Song 5',
-        ];
+        $this->db = DB::table('songs');;
     }
 
     /**
@@ -35,6 +34,7 @@ class SongsController extends Controller
      */
     public function songList()
     {
+        /** @var array $songs */
         $songs = $this->bucket();
 
         return view('layout.s01.e06.songlist.s01_e06_songlist_default', compact('songs'));
@@ -48,11 +48,11 @@ class SongsController extends Controller
     {
         if (is_null($id))
         {
-            return $this->songs;
+            return $this->db->get();
         }
         else
         {
-            return $this->songs[$id];
+            return $this->db->find($id);
         }
     }
 
