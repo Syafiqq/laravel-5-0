@@ -15,15 +15,15 @@ class Songs100CreateTable extends Migration
     /**
      * @var string
      */
-    private $table;
+    private $tableName;
 
     /**
      * Songs100 constructor.
      */
     public function __construct()
     {
-        $this->schema = \Illuminate\Support\Facades\Schema::getFacadeRoot();
-        $this->table  = 'songs';
+        $this->schema    = \Illuminate\Support\Facades\Schema::getFacadeRoot();
+        $this->tableName = 'songs';
     }
 
 
@@ -36,9 +36,9 @@ class Songs100CreateTable extends Migration
     {
         /** @var Illuminate\Database\Connection $db */
         $db = \Illuminate\Support\Facades\DB::getFacadeRoot();
-        if (!$this->schema->hasTable($this->table))
+        if (!$this->schema->hasTable($this->tableName))
         {
-            $this->schema->create($this->table, function (Blueprint $table) use ($db) {
+            $this->schema->create($this->tableName, function (Blueprint $table) use ($db) {
                 $table->increments('id');
                 $table->string('song', 50);
                 $table->string('lyric', 100)->nullable();
@@ -59,6 +59,6 @@ class Songs100CreateTable extends Migration
      */
     public function down()
     {
-        $this->schema->dropIfExists($this->table);
+        $this->schema->dropIfExists($this->tableName);
     }
 }
