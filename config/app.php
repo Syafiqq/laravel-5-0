@@ -145,6 +145,11 @@ return [
         'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
 
+        /*
+         * Custom Provider
+         * */
+        'App\Providers\DummyProvider',
+
     ],
 
     /*
