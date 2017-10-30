@@ -32,7 +32,7 @@ class Songs101AddSoftDelete extends Migration
     {
         if ($this->schema->hasTable($this->tableName))
         {
-            $this->schema($this->tableName, function (Blueprint $table) {
+            $this->schema->table($this->tableName, function (Blueprint $table) {
                 $table->softDeletes();
             });
         }
@@ -51,7 +51,7 @@ class Songs101AddSoftDelete extends Migration
     {
         if ($this->schema->hasTable($this->tableName))
         {
-            $this->schema($this->tableName, function (Blueprint $table) {
+            $this->schema->table($this->tableName, function (Blueprint $table) {
                 $table->dropSoftDeletes();
             });
         }
