@@ -23,8 +23,11 @@ $router->get('/template/semantic', 'TemplateController@semantic');
 $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
     //Basic GET Route
     $router->get('/songs', 'S01\E06\SongsController@songList');
-    $router->get('/songs/{id}', 'S01\E06\SongsController@songGet')
-        ->where('id', '[0-9]+'); //Regular Expression Parameter Constraints
+    $router->group(['middleware' => ['songs.get']], function () use ($router) {
+        $router->get('/songs/{id}', 'S01\E06\SongsController@songGet');
+    });
+
+    //Regular Expression Parameter Constraints
     $router->get('/songs9/{id}', function ($id) {
         /**
          * @see https://laracasts.com/discuss/channels/laravel/route-to-continue-looking
