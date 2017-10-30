@@ -25,6 +25,20 @@ $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
     $router->get('/songs', 'S01\E06\SongsController@songList');
     $router->get('/songs/{id}', 'S01\E06\SongsController@songGet')
         ->where('id', '[0-9]+'); //Regular Expression Parameter Constraints
+    $router->get('/songs9/{id}', function ($id) {
+        /**
+         * @see https://laracasts.com/discuss/channels/laravel/route-to-continue-looking
+         * @see https://laracasts.com/discuss/channels/laravel/change-laravel-route-parameter
+         * @see https://scotch.io/tutorials/get-laravel-route-parameters-in-middleware
+         *
+         * */
+        /** @var \Illuminate\Foundation\Application $app */
+        $app = \Illuminate\Support\Facades\App::getFacadeRoot();
+        /** @var \App\Http\Controllers\S01\E06\SongsController $songs */
+        $songs = $app->make("App\Http\Controllers\S01\E06\SongsController");
+
+        return $songs->songGet($id);
+    });
     //Other Basic Routes
     $router->post('/songs1', 'S01\E06\SongsController@songList');
     //Registering A Route For Multiple Verbs
