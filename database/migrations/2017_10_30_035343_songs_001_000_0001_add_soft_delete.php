@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class Songs101AddSoftDelete extends Migration
+class Songs0010000001AddSoftDelete extends Migration
 {
     /**
      * @var Illuminate\Database\Schema\Builder
