@@ -1,22 +1,19 @@
 <?php namespace App\Http\Controllers\S01\E06;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\DB;
+use App\Song;
 
+/**
+ * Class SongsController
+ * @package App\Http\Controllers\S01\E06
+ */
 class SongsController extends Controller
 {
-    /**
-     * @var Builder
-     */
-    private $db;
-
     /**
      * SongsController constructor.
      */
     public function __construct()
     {
-        $this->db = DB::table('songs');;
     }
 
     /**
@@ -42,17 +39,17 @@ class SongsController extends Controller
 
     /**
      * @param int|null $id
-     * @return array|string
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|null|static|static[]
      */
     private function bucket($id = null)
     {
         if (is_null($id))
         {
-            return $this->db->get();
+            return Song::all();
         }
         else
         {
-            return $this->db->find($id);
+            return Song::find($id);
         }
     }
 

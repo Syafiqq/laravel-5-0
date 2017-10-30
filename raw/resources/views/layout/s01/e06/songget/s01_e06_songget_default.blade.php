@@ -1,10 +1,3 @@
-<?php
-if (!isset($song))
-{
-    $song = null;
-}
-?>
-
 @extends('root.root-0')
 
 @section('head-title')
@@ -16,8 +9,8 @@ if (!isset($song))
 @endsection
 
 @section('body-content')
-    @unless($song == null)
-        <h1>Detail Of Song [{{$song['song']}}]</h1>
-        <h2>Lyric Of Song [{{$song['lyric']}}]</h2>
+    @unless(/** @var \App\Song $song */$song == null)
+        <h1>Detail Of Song [{{$song->getAttribute('song')}}]</h1>
+        <h2>Lyric Of Song [{{$song->getAttribute('lyric')}}]</h2>
     @endunless
 @endsection
