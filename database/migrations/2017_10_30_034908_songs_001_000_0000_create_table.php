@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 /**
  * Class Songs100CreateTable
  */
-class Songs100CreateTable extends Migration
+class Songs0010000000CreateTable extends Migration
 {
     /**
      * @var Illuminate\Database\Schema\Builder
