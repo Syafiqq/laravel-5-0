@@ -13,15 +13,15 @@ class SongsController extends Controller
     /**
      * @var Song
      */
-    private $songModel;
+    private $song;
 
     /**
      * SongsController constructor.
-     * @param Song $songModel
+     * @param Song $song
      */
-    public function __construct(Song $songModel)
+    public function __construct(Song $song)
     {
-        $this->songModel = $songModel;
+        $this->song = $song;
     }
 
     /**
@@ -31,7 +31,7 @@ class SongsController extends Controller
      */
     public function dispatcher(Song $song, $id = null)
     {
-        return is_null($id) ? $this->lists() : $this->find($song, $id);
+        return is_null($id) ? $this->lists() : $this->find($song->find($id));
     }
 
     /**
@@ -41,38 +41,42 @@ class SongsController extends Controller
     {
         /** @var array $songs */
         //$songs = $this->bucket($this->songModel);
-        $songs = $this->songModel->all();
+        $songs = $this->song->all();
 
         return view('layout.s01.e06.songlist.s01_e06_songlist_default', compact('songs'));
     }
 
     /**
-     * @param Song $songModel
+     * @param Song $song
      * @param int|null $id
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|null|static|static[]
      */
-    private function bucket(Song $songModel, $id = null)
+    private function bucket(Song $song, $id = null)
     {
-        return is_null($id) ? $songModel->all() : $songModel->find($id);
+        return is_null($id) ? $song->all() : $song->find($id);
     }
 
     /**
-     * @param Song $songModel
-     * @param int $id
+     * @param Song $song
      * @return \Illuminate\View\View
      */
-    public function find(Song $songModel, $id)
+    public function find(Song $song)
     {
-        $song = $this->bucket($songModel, $id);
-
         return view('layout.s01.e06.songget.s01_e06_songget_default', compact('song'));
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         return view('layout.s01.e06.songcreate.s01_e06_songcreate_default');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function doCreate(Request $request)
     {
         $song = new Song;
