@@ -1,12 +1,4 @@
 <?php
-/** @var \App\Http\Requests\Request $request */
-$request = \Illuminate\Support\Facades\Request::getFacadeRoot();
-$prefix  = $request->route()->getPrefix();
-if (!isset($songs))
-{
-    $songs = [];
-}
-
 /** @var \Collective\Html\FormBuilder $form */
 $form = \Collective\Html\FormFacade::getFacadeRoot();
 ?>
