@@ -28,17 +28,27 @@ class SongPush
                 /** @var Song $song */
                 foreach ($data['songs'] as &$song)
                 {
-                    if ($song instanceof Song)
-                    {
-                        $song->setAttribute('id', $song->encode());
-                    }
+                    $this->changeAttribute($song);
                 }
             }
+            else if ($data['song'])
+            {
+                $this->changeAttribute($data['song']);
+            }
         }
+
 
         $response->setContent($content);
 
         return $response;
+    }
+
+    function changeAttribute(&$song)
+    {
+        if ($song instanceof Song)
+        {
+            $song->setAttribute('id', $song->encode());
+        }
     }
 
 }
