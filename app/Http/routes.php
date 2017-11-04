@@ -23,6 +23,8 @@ $router->get('/template/semantic', 'TemplateController@semantic');
 $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
     //Basic GET Route
     $router->get('/songs', 'S01\E06\SongsController@lists');
+    $router->get('/songs/create', 'S01\E06\SongsController@create');
+    $router->post('/songs/create', 'S01\E06\SongsController@doCreate');
     $router->group(['middleware' => ['songs.get']], function () use ($router) {
         $router->get('/songs/{id}', 'S01\E06\SongsController@find');
     });
