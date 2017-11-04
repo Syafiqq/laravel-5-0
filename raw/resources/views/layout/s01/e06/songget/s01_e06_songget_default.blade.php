@@ -8,9 +8,17 @@
     <meta name="description" content="Song Detail">
 @endsection
 
+@section('head-css')
+    @parent
+    <link rel="stylesheet" href="{{url('/assets/css/layout/s01/e06/songget/s01_e06_songget_default.min.css')}}">
+@endsection
+
+
 @section('body-content')
     @unless(/** @var \App\Song $song */$song == null)
-        <h1>Detail Of Song [{{$song->getAttribute('song')}}]</h1>
-        <h2>Lyric Of Song [{{$song->getAttribute('lyric')}}]</h2>
+        <h1 class="ui center aligned header">{{$song->getAttribute('song')}}</h1>
+        <div class="ui container">
+            <p class="">{!! nl2br($song->getAttribute('lyric')) !!}</p>
+        </div>
     @endunless
 @endsection
