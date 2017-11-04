@@ -24,10 +24,14 @@ $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
     //Basic GET Route
     $router->get('/songs/create', 'S01\E06\SongsController@create');
     $router->post('/songs/create', 'S01\E06\SongsController@doCreate');
-    $router->group(['middleware' => 'song.projection'], function () use ($router) {
+    $router->group(['middleware' => ['song.get', 'song.projection']], function () use ($router) {
         $router->get('/songs/{id}', 'S01\E06\SongsController@find');
-        $router->get('/songs/{id}/edit', 'S01\E06\SongsController@update');
+        $router->group(['middleware' => 'song.push'], function () use ($router) {
+            $router->get('/songs/{id}/edit', 'S01\E06\SongsController@update');
+        });
         $router->patch('/songs/{id}/edit', 'S01\E06\SongsController@doUpdate');
     });
-    $router->get('/songs', 'S01\E06\SongsController@lists');
+    $router->group(['middleware' => 'song.push'], function () use ($router) {
+        $router->get('/songs', 'S01\E06\SongsController@lists');
+    });
 });
