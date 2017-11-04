@@ -74,12 +74,12 @@ class SongsController extends Controller
     }
 
     /**
+     * @param Song $song
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function doCreate(Request $request)
+    public function doCreate(Song $song, Request $request)
     {
-        $song = new Song;
         $song->setAttribute('song', $request->get('song', null));
         $song->setAttribute('lyric', $request->get('lyric', null));
         if ($song->getAttribute('song') && $song->getAttribute('lyric'))
@@ -92,5 +92,24 @@ class SongsController extends Controller
         {
             return redirect('s01/e06/songs/create');
         }
+    }
+
+    /**
+     * @param Song $song
+     * @return \Illuminate\View\View
+     */
+    public function update(Song $song)
+    {
+        return view('layout.s01.e06.songedit.s01_e06_songedit_default', compact('song'));
+    }
+
+    /**
+     * @param Song $song
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function doUpdate(Song $song, Request $request)
+    {
+        return $this->doCreate($song, $request);
     }
 }
