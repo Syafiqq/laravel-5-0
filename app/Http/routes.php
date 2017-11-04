@@ -26,8 +26,8 @@ $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
     $router->post('/songs/create', 'S01\E06\SongsController@doCreate');
     $router->group(['middleware' => 'song.projection'], function () use ($router) {
         $router->get('/songs/{id}', 'S01\E06\SongsController@find');
-        $router->get('/songs/{id}/edit', 'S01\E06\SongsController@edit');
-        $router->patch('/songs/{id}/edit', 'S01\E06\SongsController@doEdit');
+        $router->get('/songs/{id}/edit', 'S01\E06\SongsController@update');
+        $router->patch('/songs/{id}/edit', 'S01\E06\SongsController@doUpdate');
     });
     $router->get('/songs', 'S01\E06\SongsController@lists');
 });
