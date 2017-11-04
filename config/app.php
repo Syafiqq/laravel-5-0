@@ -144,6 +144,7 @@ return [
         'App\Providers\ConfigServiceProvider',
         'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
+        'Collective\Html\HtmlServiceProvider',
 
         /*
          * Custom Provider
@@ -197,7 +198,8 @@ return [
         'URL' => 'Illuminate\Support\Facades\URL',
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View' => 'Illuminate\Support\Facades\View',
-
+        'FormFacade' => 'Collective\Html\FormFacade',
+        'HtmlFacade' => 'Collective\Html\HtmlFacade',
     ],
 
 ];

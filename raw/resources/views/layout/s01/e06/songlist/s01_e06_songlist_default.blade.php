@@ -25,7 +25,7 @@ if (!isset($songs))
             <div class="item">
                 <i class="music icon"></i>
                 <div class="content">
-                    <a href="{{url("{$prefix}/songs/{$song->encode()}")}}">{{$song->getAttribute('song')}}</a>
+                    <a href="{{url("{$prefix}/songs/{$song->getAttribute('id')}")}}">{{$song->getAttribute('song')}}</a>
                 </div>
             </div>
         @endforeach

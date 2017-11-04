@@ -32,7 +32,9 @@ class Kernel extends HttpKernel
         'auth' => 'App\Http\Middleware\Authenticate',
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
         'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
-        'songs.get' => 'App\Http\Middleware\SongGet'
+        'song.get' => 'App\Http\Middleware\SongGet',
+        'song.push' => 'App\Http\Middleware\SongPush',
+        'song.projection' => 'App\Http\Middleware\SongProjection'
     ];
 
 }
