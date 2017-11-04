@@ -10,21 +10,28 @@ use App\Song;
 class SongsController extends Controller
 {
     /**
-     * SongsController constructor.
+     * @var Song
      */
-    public function __construct()
+    private $songModel;
+
+    /**
+     * SongsController constructor.
+     * @param Song $songModel
+     */
+    public function __construct(Song $songModel)
     {
+        $this->songModel = $songModel;
     }
 
     /**
+     * @param Song $song
      * @param null|int $id
      * @return \Illuminate\View\View
      */
-    public function songDispatcher($id = null)
+    public function songDispatcher(Song $song, $id = null)
     {
-        return is_null($id) ? $this->songList() : $this->songGet($id);
+        return is_null($id) ? $this->songList() : $this->songGet($song, $id);
     }
-
 
     /**
      * @return \Illuminate\View\View
@@ -32,34 +39,30 @@ class SongsController extends Controller
     public function songList()
     {
         /** @var array $songs */
-        $songs = $this->bucket();
+        //$songs = $this->bucket($this->songModel);
+        $songs = $this->songModel->all();
 
         return view('layout.s01.e06.songlist.s01_e06_songlist_default', compact('songs'));
     }
 
     /**
+     * @param Song $songModel
      * @param int|null $id
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection|null|static|static[]
      */
-    private function bucket($id = null)
+    private function bucket(Song $songModel, $id = null)
     {
-        if (is_null($id))
-        {
-            return Song::all();
-        }
-        else
-        {
-            return Song::find($id);
-        }
+        return is_null($id) ? $songModel->all() : $songModel->find($id);
     }
 
     /**
+     * @param Song $songModel
      * @param int $id
      * @return \Illuminate\View\View
      */
-    public function songGet($id)
+    public function songGet(Song $songModel, $id)
     {
-        $song = $this->bucket($id);
+        $song = $this->bucket($songModel, $id);
 
         return view('layout.s01.e06.songget.s01_e06_songget_default', compact('song'));
     }
