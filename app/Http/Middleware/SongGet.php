@@ -20,17 +20,9 @@ class SongGet
     public function handle($request, Closure $next)
     {
         $knownId = Song::decode($request->route()->getParameter('id'));
-        $song    = Song::find($knownId);
-        if (is_null($song) || $song->count() <= 0)
-        {
-            return abort(404);
-        }
-        else
-        {
-            $request->route()->setParameter('id', $knownId);
+        $request->route()->setParameter('id', $knownId);
 
-            return $next($request);
-        }
+        return $next($request);
     }
 
 }
