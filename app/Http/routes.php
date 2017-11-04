@@ -28,7 +28,7 @@ $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
     });
 
     //Regular Expression Parameter Constraints
-    $router->get('/songs9/{id}', function ($id) {
+    $router->get('/songs9/{id}', function (\App\Song $song, $id) {
         /**
          * @see https://laracasts.com/discuss/channels/laravel/route-to-continue-looking
          * @see https://laracasts.com/discuss/channels/laravel/change-laravel-route-parameter
@@ -40,7 +40,7 @@ $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
         /** @var \App\Http\Controllers\S01\E06\SongsController $songs */
         $songs = $app->make("App\Http\Controllers\S01\E06\SongsController");
 
-        return $songs->songGet($id);
+        return $songs->songGet($song, $id);
     });
     //Other Basic Routes
     $router->post('/songs1', 'S01\E06\SongsController@songList');
