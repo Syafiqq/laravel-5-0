@@ -22,9 +22,9 @@ $router->get('/template/semantic', 'TemplateController@semantic');
 //Lesson 006
 $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
     //Basic GET Route
-    $router->get('/songs', 'S01\E06\SongsController@songList');
+    $router->get('/songs', 'S01\E06\SongsController@lists');
     $router->group(['middleware' => ['songs.get']], function () use ($router) {
-        $router->get('/songs/{id}', 'S01\E06\SongsController@songGet');
+        $router->get('/songs/{id}', 'S01\E06\SongsController@find');
     });
 
     //Regular Expression Parameter Constraints
@@ -40,19 +40,19 @@ $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
         /** @var \App\Http\Controllers\S01\E06\SongsController $songs */
         $songs = $app->make("App\Http\Controllers\S01\E06\SongsController");
 
-        return $songs->songGet($song, $id);
+        return $songs->find($song, $id);
     });
     //Other Basic Routes
-    $router->post('/songs1', 'S01\E06\SongsController@songList');
+    $router->post('/songs1', 'S01\E06\SongsController@lists');
     //Registering A Route For Multiple Verbs
-    $router->match(['get', 'post'], '/songs2', 'S01\E06\SongsController@songList');
+    $router->match(['get', 'post'], '/songs2', 'S01\E06\SongsController@lists');
     //Optional Route Parameters
-    $router->get('/songs3/{id?}/{name?}', 'S01\E06\SongsController@songDispatcher')
+    $router->get('/songs3/{id?}/{name?}', 'S01\E06\SongsController@dispatcher')
         ->where('id', '[0-9]+')//Regular Expression Parameter Constraints
         ->where('name', '[a-z]+'); //Regular Expression Parameter Constraints
-    $router->get('/songs4/{id?}/{name?}', 'S01\E06\SongsController@songDispatcher')
+    $router->get('/songs4/{id?}/{name?}', 'S01\E06\SongsController@dispatcher')
         ->where(['id' => '[0-9]+', 'name' => '[a-z]+']);//Regular Expression Parameter Constraints
-    $router->get('/songs5/{g_id?}/{g_name?}', 'S01\E06\SongsController@songDispatcher');
+    $router->get('/songs5/{g_id?}/{g_name?}', 'S01\E06\SongsController@dispatcher');
     //Named Routes
     $router->get('/songs6/{g_id?}/{g_name?}', ['as' => 'ssong6', function () use ($log, $router) {
         $url = route('ssong6');
@@ -67,7 +67,7 @@ $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
 //Route Groups
 $router->group(['namespace' => 'S01', 'prefix' => 's01'], function () use ($router) {
     $router->group(['namespace' => 'E06'], function () use ($router) {
-        $router->get('e06/songs7/{g_id?}/{g_name?}', 'SongsController@songDispatcher');
+        $router->get('e06/songs7/{g_id?}/{g_name?}', 'SongsController@dispatcher');
     });
 });
 $router->group([
@@ -80,6 +80,3 @@ $router->group([
         $log->error($version);
     });
 });
-
-
-

@@ -28,15 +28,15 @@ class SongsController extends Controller
      * @param null|int $id
      * @return \Illuminate\View\View
      */
-    public function songDispatcher(Song $song, $id = null)
+    public function dispatcher(Song $song, $id = null)
     {
-        return is_null($id) ? $this->songList() : $this->songGet($song, $id);
+        return is_null($id) ? $this->lists() : $this->find($song, $id);
     }
 
     /**
      * @return \Illuminate\View\View
      */
-    public function songList()
+    public function lists()
     {
         /** @var array $songs */
         //$songs = $this->bucket($this->songModel);
@@ -60,7 +60,7 @@ class SongsController extends Controller
      * @param int $id
      * @return \Illuminate\View\View
      */
-    public function songGet(Song $songModel, $id)
+    public function find(Song $songModel, $id)
     {
         $song = $this->bucket($songModel, $id);
 
