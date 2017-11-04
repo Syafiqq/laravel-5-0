@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Song;
+use Illuminate\Http\Request;
 
 /**
  * Class SongsController
@@ -65,5 +66,27 @@ class SongsController extends Controller
         $song = $this->bucket($songModel, $id);
 
         return view('layout.s01.e06.songget.s01_e06_songget_default', compact('song'));
+    }
+
+    public function create()
+    {
+        return view('layout.s01.e06.songcreate.s01_e06_songcreate_default');
+    }
+
+    public function doCreate(Request $request)
+    {
+        $song = new Song;
+        $song->setAttribute('song', $request->get('song', null));
+        $song->setAttribute('lyric', $request->get('lyric', null));
+        if ($song->getAttribute('song') && $song->getAttribute('lyric'))
+        {
+            $song->save();
+
+            return redirect('s01/e06/songs');
+        }
+        else
+        {
+            return redirect('s01/e06/songs/create');
+        }
     }
 }
