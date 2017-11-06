@@ -19,8 +19,9 @@ class SongGet
      */
     public function handle($request, Closure $next)
     {
-        $knownId = Song::decode($request->route()->getParameter('id'));
-        $request->route()->setParameter('id', $knownId);
+        $songsIdx = 'songs';
+        $knownId  = Song::decode($request->route()->getParameter($songsIdx));
+        $request->route()->setParameter($songsIdx, $knownId);
 
         return $next($request);
     }
