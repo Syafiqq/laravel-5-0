@@ -54,16 +54,3 @@ $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
         $router->get('/songs', 'S01\E06\SongsController@lists');
     });
 });
-$router->group([
-    'domain' => 'laravel.{version}.com',
-    'where' => ['version' => '50'],
-    'prefix' => 's01/e06',
-    'namespace' => 'S01\\E06'
-], function () use ($log, $router) {
-    $router->get('songs8/{g_id?}/{g_name?}', function ($version) use ($log) {
-        $log->error($version);
-    });
-});
-
-
-
