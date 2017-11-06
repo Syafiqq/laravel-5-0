@@ -35,3 +35,15 @@ $router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
         $router->get('/songs', 'S01\E06\SongsController@lists');
     });
 });
+/*
+ * Dirty Way
+ *
+$router->group(['prefix' => 's01/e06'], function () use ($log, $router) {
+    //Basic GET Route
+    $router->get('/songs', ['middleware' => ['song.push'], 'uses' => 'S01\E06\SongsController@lists']);
+    $router->get('/songs/create', 'S01\E06\SongsController@create');
+    $router->post('/songs/create', 'S01\E06\SongsController@doCreate');
+    $router->get('/songs/{id}', ['middleware' => ['song.get', 'song.projection'], 'uses' => 'S01\E06\SongsController@find']);
+    $router->get('/songs/{id}/edit', ['middleware' => ['song.get', 'song.projection', 'song.push'], 'uses' => 'S01\E06\SongsController@update']);
+    $router->patch('/songs/{id}/edit', ['middleware' => ['song.get', 'song.projection'], 'uses' => 'S01\E06\SongsController@doUpdate']);
+});*/
