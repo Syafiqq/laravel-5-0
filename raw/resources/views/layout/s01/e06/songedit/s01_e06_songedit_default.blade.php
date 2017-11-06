@@ -27,7 +27,7 @@ if (!isset($song))
 @section('body-content')
     <h3 class="ui center aligned header">Edit Song</h3>
     <div class="ui container">
-        {!! $form->model($song, ['url' => "/s01/e06/songs/{$song->getAttribute('id')}/edit", 'method' => 'patch', 'class' => 'ui form']) !!}
+        {!! $form->model($song, ['route' => ['s01.e06.songs.update', $song->getAttribute('id')], 'method' => 'patch', 'class' => 'ui form']) !!}
         <div class="field required">
             <label>Song</label>
             {!! $form->input('text','song', null, ['placeholder' => 'Song', 'required'=> true]) !!}
