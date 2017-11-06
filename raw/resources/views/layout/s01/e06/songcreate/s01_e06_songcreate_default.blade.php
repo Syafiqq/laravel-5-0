@@ -22,7 +22,7 @@ $form = \Collective\Html\FormFacade::getFacadeRoot();
 @section('body-content')
     <h3 class="ui center aligned header">Insert new song here</h3>
     <div class="ui container">
-        {!! $form->open(['url' => '/s01/e06/songs/create', 'method' => 'post', 'class' => 'ui form']) !!}
+        {!! $form->open(['route' => 's01.e06.songs.store', 'method' => 'post', 'class' => 'ui form']) !!}
         <div class="field required">
             <label>Song</label>
             {!! $form->input('text','song', null, ['placeholder' => 'Song', 'required'=> true]) !!}

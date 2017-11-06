@@ -15,7 +15,8 @@ class SongProjection
      */
     public function handle($request, Closure $next)
     {
-        $song = Song::find($request->route()->getParameter('id'));
+        $songIdx = 'songs';
+        $song    = Song::find($request->route()->getParameter($songIdx));
         if (is_null($song) || $song->count() <= 0)
         {
             return abort(404);
@@ -23,7 +24,7 @@ class SongProjection
         else
         {
             $request->route()->setParameter('song', $song);
-            $request->route()->forgetParameter('id');
+            $request->route()->forgetParameter($songIdx);
 
             return $next($request);
         }

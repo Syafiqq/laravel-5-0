@@ -1,7 +1,6 @@
 <?php
-/** @var \App\Http\Requests\Request $request */
-$request = \Illuminate\Support\Facades\Request::getFacadeRoot();
-$prefix  = $request->route()->getPrefix();
+/** @var \Collective\Html\FormBuilder $form */
+$form = \Collective\Html\FormFacade::getFacadeRoot();
 if (!isset($songs))
 {
     $songs = [];
@@ -25,7 +24,10 @@ if (!isset($songs))
             <div class="item">
                 <i class="music icon"></i>
                 <div class="content">
-                    <a href="{{url("{$prefix}/songs/{$song->getAttribute('id')}")}}">{{$song->getAttribute('song')}}</a>
+                    <a href="{{route('s01.e06.songs.show', ['songs' => $song->getAttribute('id')])}}">{{$song->getAttribute('song')}}</a>
+                    {!! $form->model($song, ['route' => ['s01.e06.songs.destroy', $song->getAttribute('id')], 'method' => 'delete', 'class' => 'ui form']) !!}
+                    {!! $form->button('<i class="trash icon"></i>', ['type' => 'Submit', 'class' => 'ui button']) !!}
+                    {!! $form->close() !!}
                 </div>
             </div>
         @endforeach
