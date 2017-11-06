@@ -22,6 +22,68 @@ class SongsController extends Controller
     public function __construct(Song $song)
     {
         $this->song = $song;
+        $this->middleware('song.get', ['only' => ['show', 'edit', 'update', 'destroy']]);
+        $this->middleware('song.projection', ['only' => ['show', 'edit', 'update', 'destroy']]);
+        $this->middleware('song.push', ['only' => ['index', 'edit']]);
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return response()->view('layout.s01.e06.songcreate.s01_e06_songcreate_default');
+    }
+
+    /**
+     * @param Song $song
+     * @return \Illuminate\View\View
+     */
+    public function edit(Song $song)
+    {
+        return response()->view('layout.s01.e06.songedit.s01_e06_songedit_default', compact('song'));
+    }
+
+    /**
+     * @param Song $song
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(Song $song, Request $request)
+    {
+        return $this->store($song, $request);
+    }
+
+    /**
+     * @param Song $song
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(Song $song, Request $request)
+    {
+        $song->setAttribute('song', $request->get('song', null));
+        $song->setAttribute('lyric', $request->get('lyric', null));
+        if ($song->getAttribute('song') && $song->getAttribute('lyric'))
+        {
+            $song->save();
+
+            return redirect()->route('s01.e06.songs.index');
+        }
+        else
+        {
+            return redirect()->route('s01.e06.songs.create');
+        }
+    }
+
+    /**
+     * @param Song $song
+     * @return \Illuminate\View\View
+     */
+    public function destroy(Song $song)
+    {
+        $song->delete();
+
+        return redirect()->route('s01.e06.songs.index');
     }
 
     /**
@@ -29,21 +91,30 @@ class SongsController extends Controller
      * @param null|int $id
      * @return \Illuminate\View\View
      */
-    public function dispatcher(Song $song, $id = null)
+    private function dispatcher(Song $song, $id = null)
     {
-        return is_null($id) ? $this->lists() : $this->find($song->find($id));
+        return is_null($id) ? $this->index() : $this->show($song->find($id));
     }
 
     /**
      * @return \Illuminate\View\View
      */
-    public function lists()
+    public function index()
     {
         /** @var array $songs */
         //$songs = $this->bucket($this->songModel);
         $songs = $this->song->all();
 
-        return view('layout.s01.e06.songlist.s01_e06_songlist_default', compact('songs'));
+        return response()->view('layout.s01.e06.songlist.s01_e06_songlist_default', compact('songs'));
+    }
+
+    /**
+     * @param Song $song
+     * @return \Illuminate\View\View
+     */
+    public function show(Song $song)
+    {
+        return response()->view('layout.s01.e06.songget.s01_e06_songget_default', compact('song'));
     }
 
     /**
@@ -54,62 +125,5 @@ class SongsController extends Controller
     private function bucket(Song $song, $id = null)
     {
         return is_null($id) ? $song->all() : $song->find($id);
-    }
-
-    /**
-     * @param Song $song
-     * @return \Illuminate\View\View
-     */
-    public function find(Song $song)
-    {
-        return view('layout.s01.e06.songget.s01_e06_songget_default', compact('song'));
-    }
-
-    /**
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('layout.s01.e06.songcreate.s01_e06_songcreate_default');
-    }
-
-    /**
-     * @param Song $song
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function doCreate(Song $song, Request $request)
-    {
-        $song->setAttribute('song', $request->get('song', null));
-        $song->setAttribute('lyric', $request->get('lyric', null));
-        if ($song->getAttribute('song') && $song->getAttribute('lyric'))
-        {
-            $song->save();
-
-            return redirect('s01/e06/songs');
-        }
-        else
-        {
-            return redirect('s01/e06/songs/create');
-        }
-    }
-
-    /**
-     * @param Song $song
-     * @return \Illuminate\View\View
-     */
-    public function update(Song $song)
-    {
-        return view('layout.s01.e06.songedit.s01_e06_songedit_default', compact('song'));
-    }
-
-    /**
-     * @param Song $song
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function doUpdate(Song $song, Request $request)
-    {
-        return $this->doCreate($song, $request);
     }
 }
